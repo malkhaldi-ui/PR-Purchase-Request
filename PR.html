@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURCHASE REQUEST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            display: none; /* إخفاء الرسالة في البداية */
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PURCHASE REQUEST</h1>
+    
+    <form id="submissionForm">
+        
+        <div class="form-group">
+            <label for="program">البرنامج / Programm</label>
+            <input type="text" id="program" name="program">
+        </div>
+        
+        <div class="form-group">
+            <label for="date">التاريخ / Date</label>
+            <input type="date" id="date" name="date">
+        </div>
+        
+        <div class="form-group">
+            <label for="project">المشروع / Project</label>
+            <input type="text" id="project" name="project">
+        </div>
+        
+        <div class="form-group">
+            <label for="donor">المانح / Donor</label>
+            <input type="text" id="donor" name="donor">
+        </div>
+        
+        <div class="form-group">
+            <label for="office">المكتب / المركز / Ofiice</label>
+            <select id="office" name="office">
+                <option value="Aleppo">Aleppo</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="item">Item</label>
+            <input type="text" id="item" name="item">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">الوصف / Description</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="unit">الوحدة / Unit</label>
+            <select id="unit" name="unit">
+                <option value="Person">Person</option>
+                <option value="piece">piece</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="qty">الكمية / QTY</label>
+            <input type="number" id="qty" name="qty" oninput="calculateTotalPrice()">
+        </div>
+        
+        <div class="form-group">
+            <label for="unit_price">سعر الوحدة / Unit price</label>
+            <input type="number" step="0.01" id="unit_price" name="unit_price" oninput="calculateTotalPrice()">
+        </div>
+        
+        <div class="form-group">
+            <label for="total_price">السعر الإجمالي / Total price</label>
+            <input type="number" step="0.01" id="total_price" name="total_price" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label for="item_properties">خصائص المادة المطلوبة / Description</label>
+            <textarea id="item_properties" name="item_properties"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="name">الاسم / Name</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="position">المنصب / Position</label>
+            <input type="text" id="position" name="position">
+        </div>
+        
+        <div class="form-group">
+            <input type="submit" value="إرسال البيانات">
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+        
+    </form>
+</div>
+
+<script>
+    function calculateTotalPrice() {
+        const qty = document.getElementById('qty').value;
+        const unitPrice = document.getElementById('unit_price').value;
+        const totalPrice = document.getElementById('total_price');
+
+        if (qty && unitPrice) {
+            totalPrice.value = (parseFloat(qty) * parseFloat(unitPrice)).toFixed(2);
+        } else {
+            totalPrice.value = '';
+        }
+    }
+
+    // الكود البرمجي الذي طلبته
+    // ---
+    
+    // *** ملاحظة هامة: قم بتغيير هذا الرابط برابط Google Apps Script الخاص بك ***
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxC3o7Se6c6bofvtZcGaLXVpUPzO9P0QbLWpFj-rNZU9D-O6TMNhcr-iulD4gvn96Vc/exec';
+    
+    const form = document.getElementById('submissionForm');
+    const statusMessage = document.getElementById('statusMessage');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        statusMessage.style.display = 'block';
+        statusMessage.className = 'status-message info';
+        statusMessage.textContent = 'جاري الإرسال...';
+        
+        try {
+            const response = await fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(form)
+            });
+
+            if (response.ok) {
+                statusMessage.textContent = 'تم إرسال البيانات بنجاح!';
+                statusMessage.className = 'status-message success';
+                form.reset(); // تفريغ النموذج بعد الإرسال الناجح
+            } else {
+                const errorText = await response.text();
+                throw new Error(`Server returned an error: ${errorText}`);
+            }
+        } catch (error) {
+            statusMessage.textContent = 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.';
+            statusMessage.className = 'status-message error';
+            console.error('Error!', error.message);
+        }
+    });
+
+    // ---
+</script>
+
+</body>
+</html>
