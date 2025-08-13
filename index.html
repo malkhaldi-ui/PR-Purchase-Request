@@ -407,20 +407,29 @@
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxde352YjnwPnxDI9KtiOqd8Q9reJTvuWJ0UYNOP9NZirnSnZhsmuBzsXLx0m9xUTkR/exec';
             
             // Send data
-            fetch(scriptURL + '?callback=ctrlq', {
+            fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(submissionData)
             })
-            .then(() => {
-                statusMessage.textContent = 'Request submitted successfully!';
-                statusMessage.className = 'status-message success';
-                form.reset();
-                document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                generateItemFields();
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === "success") {
+                    statusMessage.textContent = `Request submitted successfully! Request ID: ${data.requestId}`;
+                    statusMessage.className = 'status-message success';
+                    form.reset();
+                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
+                    generateItemFields();
+                } else {
+                    throw new Error(data.message || 'Unknown error occurred');
+                }
             })
             .catch(error => {
                 statusMessage.textContent = 'Error: ' + error.message;
