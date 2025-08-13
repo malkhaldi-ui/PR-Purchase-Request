@@ -352,7 +352,7 @@
         };
 
         // Form submission
-        document.getElementById("purchaseForm").addEventListener("submit", async function(e) {
+        document.getElementById("purchaseForm").addEventListener("submit", function(e) {
             e.preventDefault();
             
             const form = e.target;
@@ -360,81 +360,74 @@
             
             statusMessage.style.display = 'block';
             statusMessage.className = 'status-message info';
-            statusMessage.textContent = 'Processing your request, please wait...';
+            statusMessage.textContent = 'Processing your request...';
             
-            try {
-                // Collect form data
-                const formData = new FormData(form);
-                const data = {};
-                
-                for (let [key, value] of formData.entries()) {
-                    if (!data[key]) {
-                        data[key] = [];
-                    }
-                    data[key].push(value);
-                }
-                
-                // Prepare data for submission
-                const submissionData = {
-                    employee: {
-                        name: document.getElementById("employee").options[document.getElementById("employee").selectedIndex].text,
-                        email: data['employee_email'][0],
-                        position: data['employee_position'][0],
-                        supervisor: data['supervisor_name'][0]
-                    },
-                    request: {
-                        program: data['program'][0],
-                        project: data['project'][0],
-                        donor: data['donor'][0],
-                        date: data['date'][0],
-                        office: data['office'][0]
-                    },
-                    items: []
-                };
-                
-                const itemCount = parseInt(data['item_count'][0]);
-                for (let i = 0; i < itemCount; i++) {
-                    submissionData.items.push({
-                        item: data['item[]'][i],
-                        description: data['description[]'][i],
-                        quantity: data['quantity[]'][i],
-                        unit: data['unit[]'][i],
-                        unit_price: data['unit_price[]'][i],
-                        total_price: data['total_price[]'][i],
-                        purpose: data['purpose[]'][i],
-                        urgency: data['urgency[]'][i]
-                    });
-                }
-                
-                // Send data to Google Apps Script
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbxde352YjnwPnxDI9KtiOqd8Q9reJTvuWJ0UYNOP9NZirnSnZhsmuBzsXLx0m9xUTkR/exec';
-                
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(submissionData)
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (!data[key]) data[key] = [];
+                data[key].push(value);
+            }
+            
+            // Prepare data for submission
+            const submissionData = {
+                employee: {
+                    name: document.getElementById("employee").options[document.getElementById("employee").selectedIndex].text,
+                    email: data['employee_email'][0],
+                    position: data['employee_position'][0],
+                    supervisor: data['supervisor_name'][0]
+                },
+                request: {
+                    program: data['program'][0],
+                    project: data['project'][0],
+                    donor: data['donor'][0],
+                    date: data['date'][0],
+                    office: data['office'][0]
+                },
+                items: []
+            };
+            
+            const itemCount = parseInt(data['item_count'][0]);
+            for (let i = 0; i < itemCount; i++) {
+                submissionData.items.push({
+                    item: data['item[]'][i],
+                    description: data['description[]'][i],
+                    quantity: data['quantity[]'][i],
+                    unit: data['unit[]'][i],
+                    unit_price: data['unit_price[]'][i],
+                    total_price: data['total_price[]'][i],
+                    purpose: data['purpose[]'][i],
+                    urgency: data['urgency[]'][i]
                 });
-                
-                const result = await response.json();
-                
-                if (result.status === "success") {
-                    statusMessage.textContent = 'Your request has been submitted successfully! You will receive a confirmation email.';
-                    statusMessage.className = 'status-message success';
-                    form.reset();
-                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                    generateItemFields();
-                } else {
-                    throw new Error(result.message || 'Error occurred during submission');
-                }
-            } catch (error) {
+            }
+            
+            // Replace with your actual Google Apps Script URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxde352YjnwPnxDI9KtiOqd8Q9reJTvuWJ0UYNOP9NZirnSnZhsmuBzsXLx0m9xUTkR/exec';
+            
+            // Send data
+            fetch(scriptURL + '?callback=ctrlq', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submissionData)
+            })
+            .then(() => {
+                statusMessage.textContent = 'Request submitted successfully!';
+                statusMessage.className = 'status-message success';
+                form.reset();
+                document.getElementById("date").value = new Date().toISOString().split('T')[0];
+                generateItemFields();
+            })
+            .catch(error => {
                 statusMessage.textContent = 'Error: ' + error.message;
                 statusMessage.className = 'status-message error';
                 console.error('Error:', error);
-            }
+            });
         });
     </script>
 </body>
 </html>
-
