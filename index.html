@@ -399,42 +399,32 @@
             }
             
             // Replace with your actual Google Apps Script URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzMee1M9zyoEGXTJ8UIcGSDTMnFYZf6tOuGZVqeM737O0c2uB1xFojucTTQ6Vfd7Rjr/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyPrgG4Vwy4hYPmwS-i-Pva0wTltVB48ngS3ztMotgsd24L1TTvrKECfX2cgtOhlSZX/exec';
             
             
             // Send data with CORS mode
+     
+
+            // Send data to test the connection
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'cors', // Changed to 'cors'
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(submissionData)
+                body: JSON.stringify({ test: 'test data' })
             })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Network response was not ok.');
-                }
-            })
+            .then(response => response.text()) // نطلب استجابة نصية بدلاً من JSON
             .then(data => {
-                if (data.status === "success") {
-                    statusMessage.textContent = 'Request submitted successfully!';
-                    statusMessage.className = 'status-message success';
-                    form.reset();
-                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                    generateItemFields();
-                } else {
-                    throw new Error(data.message || 'An unknown error occurred.');
-                }
+                // إذا وصلتنا استجابة، فهذا يعني أن الاتصال ناجح
+                alert('Connection Successful! Response from server: ' + data);
             })
             .catch(error => {
-                statusMessage.textContent = 'Error: ' + error.message;
-                statusMessage.className = 'status-message error';
+                // إذا فشل الاتصال، فسيظهر هذا التنبيه
+                alert('Connection Failed! Error: ' + error.message);
                 console.error('Error:', error);
             });
-        });
+                    });
     </script>
 </body>
 </html>
