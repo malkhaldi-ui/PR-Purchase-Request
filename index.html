@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,318 +35,241 @@
         }
         .form-group {
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
         .form-group label {
-            display: block;
-            margin-bottom: 5px;
+            width: 150px;
             font-weight: bold;
-            color: #34495e;
+            color: #555;
         }
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
+        .form-group input, .form-group select {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
             border-radius: 4px;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .item-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .item-row input {
+            flex: 1;
+        }
+        .item-row .btn-remove {
+            width: 30px;
+            height: 30px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
             font-size: 16px;
         }
-        .form-group input[type="submit"] {
+        .btn-add-item {
+            display: block;
+            width: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
             background-color: #3498db;
             color: white;
-            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-        .form-group input[type="submit"]:hover {
-            background-color: #2980b9;
-        }
-        .item-container {
-            border: 1px solid #eee;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            background: white;
-        }
-        .item-header {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed #ccc;
+            margin-top: 20px;
         }
         .status-message {
-            padding: 10px;
-            margin: 15px 0;
+            display: none;
+            padding: 15px;
+            margin-top: 20px;
             border-radius: 4px;
             text-align: center;
-            display: none;
         }
-        .success {
+        .status-message.success {
             background-color: #d4edda;
             color: #155724;
         }
-        .error {
+        .status-message.error {
             background-color: #f8d7da;
             color: #721c24;
         }
-        .info {
+        .status-message.info {
             background-color: #d1ecf1;
             color: #0c5460;
-        }
-        .required-field::after {
-            content: " *";
-            color: red;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Purchase Request System - DAR</h1>
-        
-        <form id="purchaseForm">
+        <h1>Purchase Request</h1>
+        <form id="purchaseForm" method="POST">
+
             <div class="form-section">
-                <h3>Applicant Information</h3>
-                
-                <div class="form-group">
-                    <label for="employee" class="required-field">Select Employee</label>
-                    <select id="employee" name="employee" required onchange="fillEmployeeDetails()">
-                        <option value="">-- Select Employee Name --</option>
-                        <option value="Soulaf Abou Hamdan|shamdan@dar.ngo|Programs Coordinator">Soulaf Abou Hamdan</option>
-                        <option value="Raghad Alabo|ralabo@dar.ngo|Administrative Officer">Raghad Alabo</option>
-                        <option value="Khunaf Shammo|kshamo@dar.ngo|Aria Coordenator">Khunaf Shammo</option>
-                        <option value="Alia Shams|Ashams@dar.ngo|Aria Coordenator">Alia Shams</option>
-                        <option value="Mohammad Alhadi|Malhadi@dar.ngo|Aria Coordenator">Mohammad Alhadi</option>
-                        <option value="Mhedi Alkhaldi|malkhaldi@dar.ngo|MEAL Officer">Mhedi Alkhaldi</option>
-                        <option value="Alan Khalil|akhalil@dar.ngo|Operation Manager">Alan Khalil</option>
-                        <option value="Hiba Almanadili|hr@dar.ngo|HR Officer">Hiba Almanadili</option>
-                        <option value="Hasan Daas|Hdaas@dar.ngo|Finance Officer">Hasan Daas</option>
-                        <option value="Abd Alkader Sabbagh|asabbagh@dar.ngo|Finance & Logistics Coordinator">Abd Alkader Sabbagh</option>
-                        <option value="Malik Omo|momo@dar.ngo|Finance & Logistics Assistant">Malik Omo</option>
-                        <option value="Ebrahem Shehnabe|inabi@dar.ngo|Finance & Logistics Assistant">Ebrahem Shehnabe</option>
-                        <option value="Hussaim Morad|liaison@dar.ngo|Head of the KRI Mission">Hussaim Morad</option>
-                        <option value="Hazem Alzeer|Hmohammad@dar.ngo|Media Officer">Hazem Alzeer</option>
-                        <option value="Felix Legrand|fLegrand@dar.ngo|Partnerships Supervisor">Felix Legrand</option>
-                        <option value="Raian Ani|ralani@dar.ngo|Partnerships Officer">Raian Ani</option>
-                        <option value="Silvart Salloum|ssalloum@dar.ngo|Partnerships Volunteer">Silvart Salloum</option>
-                        <option value="Samar Kattan|skattan@dar.ngo|CEO">Samar Kattan</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="employee_email">Email</label>
-                    <input type="email" id="employee_email" name="employee_email" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="employee_position">Position</label>
-                    <input type="text" id="employee_position" name="employee_position" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="supervisor_name">Direct Supervisor</label>
-                    <input type="text" id="supervisor_name" name="supervisor_name" readonly>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Request Information</h3>
-                
-                <div class="form-group">
-                    <label for="program" class="required-field">Program</label>
-                    <select id="program" name="program" required>
-                        <option value="">-- Select Program --</option>
-                        <option value="Humanitarian Response">Humanitarian Response</option>
-                        <option value="Protection">Protection</option>
-                        <option value="Shelter and Non-Food Items">Shelter and Non-Food Items</option>
-                        <option value="Water and Sanitation">Water and Sanitation</option>
-                        <option value="Food Security">Food Security</option>
-                        <option value="Health">Health</option>
-                        <option value="Education">Education</option>
-                        <option value="Community Resilience">Community Resilience</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="project" class="required-field">Project</label>
-                    <input type="text" id="project" name="project" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor" class="required-field">Donor</label>
-                    <input type="text" id="donor" name="donor" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="date" class="required-field">Request Date</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="office" class="required-field">Office</label>
-                    <select id="office" name="office" required>
-                        <option value="">-- Select Office --</option>
-                        <option value="Aleppo">Aleppo</option>
-                        <option value="Damascus">Damascus</option>
-                        <option value="Al-Hasakah">Al-Hasakah</option>
-                        <option value="Idlib">Idlib</option>
-                        <option value="Ar-Raqqa">Ar-Raqqa</option>
-                        <option value="KRI">KRI</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Requested Items/Services Details</h3>
-                
-                <div class="form-group">
-                    <label for="item_count" class="required-field">Number of Items</label>
-                    <input type="number" id="item_count" name="item_count" min="1" value="1" required onchange="generateItemFields()">
-                </div>
-                
-                <div id="items_container">
+                <h3>Employee Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employee_name">Employee Name</label>
+                        <input type="text" id="employee_name" name="employee_name" required>
                     </div>
+                    <div class="form-group">
+                        <label for="employee_email">Employee Email</label>
+                        <input type="email" id="employee_email" name="employee_email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employee_position">Position</label>
+                        <input type="text" id="employee_position" name="employee_position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supervisor_name">Supervisor Name</label>
+                        <input type="text" id="supervisor_name" name="supervisor_name" required>
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Submit Purchase Request">
+
+            <div class="form-section">
+                <h3>Request Details</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="program">Program</label>
+                        <input type="text" id="program" name="program" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project">Project</label>
+                        <input type="text" id="project" name="project" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="donor">Donor</label>
+                        <input type="text" id="donor" name="donor" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="office">Office</label>
+                    <select id="office" name="office" required>
+                        <option value="">Select Office</option>
+                        <option value="Beirut">Beirut</option>
+                        <option value="Tripoli">Tripoli</option>
+                        <option value="Akkar">Akkar</option>
+                    </select>
+                </div>
             </div>
-            
-            <div id="statusMessage" class="status-message"></div>
+
+            <div class="form-section">
+                <h3>Purchase Items</h3>
+                <div id="items-container">
+                    </div>
+                <button type="button" class="btn-add-item" onclick="addItemField()">Add Item</button>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Request</button>
         </form>
+
+        <div id="statusMessage" class="status-message"></div>
+
     </div>
 
     <script>
-        // Employees data
-        const employees = {
-            "Soulaf Abou Hamdan": { email: "shamdan@dar.ngo", position: "Programs Coordinator", supervisor: "Samar Kattan" },
-            "Raghad Alabo": { email: "ralabo@dar.ngo", position: "Administrative Officer", supervisor: "Soulaf Abou Hamdan" },
-            "Khunaf Shammo": { email: "kshamo@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
-            "Alia Shams": { email: "Ashams@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
-            "Mohammad Alhadi": { email: "Malhadi@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
-            "Mhedi Alkhaldi": { email: "malkhaldi@dar.ngo", position: "MEAL Officer", supervisor: "Samar Kattan" },
-            "Alan Khalil": { email: "akhalil@dar.ngo", position: "Operation Manager", supervisor: "Samar Kattan" },
-            "Hiba Almanadili": { email: "hr@dar.ngo", position: "HR Officer", supervisor: "Alan Khalil" },
-            "Hasan Daas": { email: "Hdaas@dar.ngo", position: "Finance Officer", supervisor: "Alan Khalil" },
-            "Abd Alkader Sabbagh": { email: "asabbagh@dar.ngo", position: "Finance & Logistics Coordinator", supervisor: "Hasan Daas" },
-            "Malik Omo": { email: "momo@dar.ngo", position: "Finance & Logistics Assistant", supervisor: "Abd Alkader Sabbagh" },
-            "Ebrahem Shehnabe": { email: "inabi@dar.ngo", position: "Finance & Logistics Assistant", supervisor: "Abd Alkader Sabbagh" },
-            "Hussaim Morad": { email: "liaison@dar.ngo", position: "Head of the KRI Mission", supervisor: "Alan Khalil" },
-            "Hazem Alzeer": { email: "Hmohammad@dar.ngo", position: "Media Officer", supervisor: "Samar Kattan" },
-            "Felix Legrand": { email: "fLegrand@dar.ngo", position: "Partnerships Supervisor", supervisor: "Samar Kattan" },
-            "Raian Ani": { email: "ralani@dar.ngo", position: "Partnerships Officer", supervisor: "Felix Legrand" },
-            "Silvart Salloum": { email: "ssalloum@dar.ngo", position: "Partnerships Volunteer", supervisor: "Raian Ani" },
-            "Samar Kattan": { email: "skattan@dar.ngo", position: "CEO", supervisor: "" }
-        };
-
-        // Fill employee details automatically
-        function fillEmployeeDetails() {
-            const employeeSelect = document.getElementById("employee");
-            const selectedEmployee = employeeSelect.options[employeeSelect.selectedIndex].text;
-            
-            if (employees[selectedEmployee]) {
-                const emp = employees[selectedEmployee];
-                document.getElementById("employee_email").value = emp.email;
-                document.getElementById("employee_position").value = emp.position;
-                document.getElementById("supervisor_name").value = emp.supervisor;
-            } else {
-                document.getElementById("employee_email").value = "";
-                document.getElementById("employee_position").value = "";
-                document.getElementById("supervisor_name").value = "";
-            }
-        }
-
-        // Generate item fields dynamically
-        function generateItemFields() {
-            const itemCount = parseInt(document.getElementById("item_count").value);
-            const container = document.getElementById("items_container");
-            container.innerHTML = '';
-            
-            for (let i = 1; i <= itemCount; i++) {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'item-container';
-                itemDiv.innerHTML = `
-                    <div class="item-header">Item ${i}</div>
-                    
-                    <div class="form-group">
-                        <label for="item_${i}" class="required-field">Item/Service Name</label>
-                        <input type="text" id="item_${i}" name="item[]" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="description_${i}" class="required-field">Detailed Description</label>
-                        <textarea id="description_${i}" name="description[]" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="quantity_${i}" class="required-field">Quantity</label>
-                        <input type="number" id="quantity_${i}" name="quantity[]" min="1" required oninput="calculateTotal(${i})">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="unit_${i}" class="required-field">Unit of Measurement</label>
-                        <select id="unit_${i}" name="unit[]" required>
-                            <option value="">-- Select Unit --</option>
-                            <option value="Piece">Piece</option>
-                            <option value="Kilogram">Kilogram</option>
-                            <option value="Liter">Liter</option>
-                            <option value="Meter">Meter</option>
-                            <option value="Square Meter">Square Meter</option>
-                            <option value="Set">Set</option>
-                            <option value="Package">Package</option>
-                            <option value="Hour">Hour</option>
-                            <option value="Day">Day</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="unit_price_${i}" class="required-field">Unit Price ($)</label>
-                        <input type="number" id="unit_price_${i}" name="unit_price[]" step="0.01" min="0" required oninput="calculateTotal(${i})">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="total_price_${i}">Total Amount ($)</label>
-                        <input type="number" id="total_price_${i}" name="total_price[]" step="0.01" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="purpose_${i}" class="required-field">Purpose of Request</label>
-                        <textarea id="purpose_${i}" name="purpose[]" rows="2" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="urgency_${i}">Priority Level</label>
-                        <select id="urgency_${i}" name="urgency[]">
-                            <option value="Normal">Normal</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Emergency">Emergency</option>
-                        </select>
-                    </div>
-                `;
-                container.appendChild(itemDiv);
-            }
-        }
-
-        // Calculate total amount for each item
-        function calculateTotal(index) {
-            const quantity = parseFloat(document.getElementById(`quantity_${index}`).value) || 0;
-            const unitPrice = parseFloat(document.getElementById(`unit_price_${index}`).value) || 0;
-            const total = quantity * unitPrice;
-            document.getElementById(`total_price_${index}`).value = total.toFixed(2);
-        }
-
-        // Set today's date automatically
-        window.onload = function() {
-            // Set today's date as default
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById("date").value = today;
-            
-            // Generate initial item fields
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById("date").value = new Date().toISOString().split('T')[0];
             generateItemFields();
-        };
+        });
 
-        // Form submission
+        let itemCount = 0;
+
+        function generateItemFields() {
+            itemCount = 0;
+            const container = document.getElementById("items-container");
+            container.innerHTML = '';
+            addItemField();
+        }
+
+        function addItemField() {
+            itemCount++;
+            const container = document.getElementById("items-container");
+            const newRow = document.createElement("div");
+            newRow.className = "item-row";
+            newRow.innerHTML = `
+                <input type="text" name="item[]" placeholder="Item Name" required>
+                <input type="text" name="description[]" placeholder="Description" required>
+                <input type="number" name="quantity[]" placeholder="Quantity" required>
+                <input type="text" name="unit[]" placeholder="Unit" required>
+                <input type="number" name="unit_price[]" placeholder="Unit Price" required>
+                <input type="number" name="total_price[]" placeholder="Total Price" readonly>
+                <input type="text" name="purpose[]" placeholder="Purpose" required>
+                <input type="text" name="urgency[]" placeholder="Urgency" required>
+                <button type="button" class="btn-remove" onclick="removeItemField(this)">-</button>
+            `;
+            container.appendChild(newRow);
+            updateItemCount();
+            setupPriceCalculation(newRow);
+        }
+
+        function removeItemField(btn) {
+            if (itemCount > 1) {
+                btn.parentNode.remove();
+                itemCount--;
+                updateItemCount();
+            }
+        }
+
+        function updateItemCount() {
+            const itemCountInput = document.getElementById("item_count");
+            if (!itemCountInput) {
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.id = "item_count";
+                hiddenInput.name = "item_count";
+                document.getElementById("purchaseForm").appendChild(hiddenInput);
+            }
+            document.getElementById("item_count").value = itemCount;
+        }
+
+        function setupPriceCalculation(row) {
+            const quantityInput = row.querySelector('[name="quantity[]"]');
+            const unitPriceInput = row.querySelector('[name="unit_price[]"]');
+            const totalPriceInput = row.querySelector('[name="total_price[]"]');
+
+            const calculateTotal = () => {
+                const quantity = parseFloat(quantityInput.value) || 0;
+                const unitPrice = parseFloat(unitPriceInput.value) || 0;
+                totalPriceInput.value = (quantity * unitPrice).toFixed(2);
+            };
+
+            quantityInput.addEventListener('input', calculateTotal);
+            unitPriceInput.addEventListener('input', calculateTotal);
+        }
+
         document.getElementById("purchaseForm").addEventListener("submit", function(e) {
             e.preventDefault();
             
@@ -357,81 +280,41 @@
             statusMessage.className = 'status-message info';
             statusMessage.textContent = 'Processing your request...';
             
-            // Collect form data
+            // Collect form data using FormData
             const formData = new FormData(form);
-            const data = {};
             
-            for (let [key, value] of formData.entries()) {
-                if (!data[key]) data[key] = [];
-                data[key].push(value);
-            }
+            // استبدل برابط النشر (Deployment URL) الجديد الذي ستحصل عليه من سكريبت Apps Script
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyuA43_Gi6-rFq--cIjzloGXcFA1UoMcuFMhNOt2FSFPl-oSs0w3eQYpZPMd-6wDvCL/execضع رابط النشر الجديد هنا';
             
-            // Prepare data for submission
-            const submissionData = {
-                employee: {
-                    name: document.getElementById("employee").options[document.getElementById("employee").selectedIndex].text,
-                    email: data['employee_email'][0],
-                    position: data['employee_position'][0],
-                    supervisor: data['supervisor_name'][0]
-                },
-                request: {
-                    program: data['program'][0],
-                    project: data['project'][0],
-                    donor: data['donor'][0],
-                    date: data['date'][0],
-                    office: data['office'][0]
-                },
-                items: []
-            };
-            
-            const itemCount = parseInt(data['item_count'][0]);
-            for (let i = 0; i < itemCount; i++) {
-                submissionData.items.push({
-                    item: data['item[]'][i],
-                    description: data['description[]'][i],
-                    quantity: data['quantity[]'][i],
-                    unit: data['unit[]'][i],
-                    unit_price: data['unit_price[]'][i],
-                    total_price: data['total_price[]'][i],
-                    purpose: data['purpose[]'][i],
-                    urgency: data['urgency[]'][i]
-                });
-            }
-            
-            // Replace with your actual Google Apps Script URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxbmGEPFxZdhXcsXtDXYqsez1iZm6c0-QJOB3WFu7QOD0gliFvwcvOn8LEmO61tBcWZ/exec';
-            
-            
-            // Send data with CORS mode
-     
-
-            // Send data to test the connection
+            // Send data as form data
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ test: 'test data' })
+                body: formData 
             })
-            .then(response => response.text()) // نطلب استجابة نصية بدلاً من JSON
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
             .then(data => {
-                // إذا وصلتنا استجابة، فهذا يعني أن الاتصال ناجح
-                alert('Connection Successful! Response from server: ' + data);
+                if (data.status === "success") {
+                    statusMessage.textContent = 'Request submitted successfully!';
+                    statusMessage.className = 'status-message success';
+                    form.reset();
+                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
+                    generateItemFields();
+                } else {
+                    throw new Error(data.message || 'An unknown error occurred.');
+                }
             })
             .catch(error => {
-                // إذا فشل الاتصال، فسيظهر هذا التنبيه
-                alert('Connection Failed! Error: ' + error.message);
+                statusMessage.textContent = 'Error: ' + error.message;
+                statusMessage.className = 'status-message error';
                 console.error('Error:', error);
             });
-                    });
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
