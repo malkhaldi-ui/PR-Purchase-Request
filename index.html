@@ -105,7 +105,6 @@
         <h1>Purchase Request System - DAR</h1>
         
         <form id="purchaseForm">
-            <!-- Employee Information -->
             <div class="form-section">
                 <h3>Applicant Information</h3>
                 
@@ -150,7 +149,6 @@
                 </div>
             </div>
             
-            <!-- Request Information -->
             <div class="form-section">
                 <h3>Request Information</h3>
                 
@@ -198,7 +196,6 @@
                 </div>
             </div>
             
-            <!-- Items Details -->
             <div class="form-section">
                 <h3>Requested Items/Services Details</h3>
                 
@@ -208,11 +205,9 @@
                 </div>
                 
                 <div id="items_container">
-                    <!-- Item fields will be added here dynamically -->
-                </div>
+                    </div>
             </div>
             
-            <!-- Submit Request -->
             <div class="form-group">
                 <input type="submit" value="Submit Purchase Request">
             </div>
@@ -406,29 +401,31 @@
             // Replace with your actual Google Apps Script URL
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxde352YjnwPnxDI9KtiOqd8Q9reJTvuWJ0UYNOP9NZirnSnZhsmuBzsXLx0m9xUTkR/exec';
             
-            // Send data
+            // Send data with CORS mode
             fetch(scriptURL, {
                 method: 'POST',
+                mode: 'cors', // Changed to 'cors'
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(submissionData)
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
                 }
-                return response.json();
             })
             .then(data => {
                 if (data.status === "success") {
-                    statusMessage.textContent = `Request submitted successfully! Request ID: ${data.requestId}`;
+                    statusMessage.textContent = 'Request submitted successfully!';
                     statusMessage.className = 'status-message success';
                     form.reset();
                     document.getElementById("date").value = new Date().toISOString().split('T')[0];
                     generateItemFields();
                 } else {
-                    throw new Error(data.message || 'Unknown error occurred');
+                    throw new Error(data.message || 'An unknown error occurred.');
                 }
             })
             .catch(error => {
