@@ -1,220 +1,672 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Request System - DAR</title>
+    <title>Purchase Request System - Dar for Peace and Prosperity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3C6255;
+            --secondary: #9CAF88;
+            --accent: #FFD700;
+            --light: #F5F5F5;
+            --dark: #2A4A3D;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #333;
             padding: 20px;
-            direction: rtl; /* Set direction to RTL for Arabic */
         }
+
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
-        h1 {
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 30px 0;
             text-align: center;
-            color: #2c3e50;
+            border-radius: 15px 15px 0 0;
+            margin-bottom: 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 10s linear infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo {
+            background: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 48px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Breadcrumb navigation */
+        .breadcrumb {
+            background: var(--secondary);
+            padding: 15px 25px;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb .separator {
+            opacity: 0.7;
+            margin: 0 5px;
+        }
+
+        /* Form card */
+        .card {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             margin-bottom: 30px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
+            border-top: 5px solid var(--secondary);
         }
+
+        .form-title {
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Form sections */
         .form-section {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
+
+        .form-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section h3 i {
+            color: var(--secondary);
+        }
+
+        /* Form groups */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #34495e;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+
+        .form-group label i {
+            color: var(--primary);
+            width: 20px;
             font-size: 16px;
         }
-        .form-group input[type="submit"] {
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .form-group input[type="submit"]:hover {
-            background-color: #2980b9;
-        }
-        .item-container {
-            border: 1px solid #eee;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
             background: white;
+            font-family: inherit;
         }
-        .item-header {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px dashed #ccc;
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(156, 175, 136, 0.1);
         }
-        .status-message {
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 4px;
-            text-align: center;
-            display: none;
+
+        .form-group input[readonly] {
+            background-color: #f0f0f0;
+            border-color: #ddd;
+            color: #666;
         }
-        .success {
-            background-color: #d4edda;
-            color: #155724;
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
         }
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-        }
+
+        /* Required fields */
         .required-field::after {
             content: " *";
-            color: red;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        /* Items container */
+        .items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .item-container {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .item-container:hover {
+            box-shadow: 0 4px 15px rgba(60, 98, 85, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .item-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-header i {
+            color: var(--accent);
+        }
+
+        /* Grid layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Submit button */
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(60, 98, 85, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn i {
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Status messages */
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: var(--success);
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: var(--danger);
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-message.info {
+            background: #d1ecf1;
+            color: var(--info);
+            border: 1px solid #bee5eb;
+        }
+
+        /* Hints */
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hint i {
+            color: var(--secondary);
+            font-size: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .footer i {
+            margin: 0 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 26px;
+            }
+            
+            .header p {
+                font-size: 16px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+            
+            .breadcrumb {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 0;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo i {
+                font-size: 36px;
+            }
+            
+            .form-section h3 {
+                font-size: 18px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Item count */
+        .item-count {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .item-count label {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 120px;
+        }
+
+        .item-count input {
+            width: 100px;
+            text-align: center;
+            padding: 8px;
+            border: 2px solid var(--secondary);
+            border-radius: 6px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Purchase Request System - DAR</h1>
-        
-        <form id="purchaseForm">
-            <div class="form-section">
-                <h3>Applicant Information</h3>
-                
-                <div class="form-group">
-                    <label for="employee" class="required-field">Select Employee</label>
-                    <select id="employee" name="employee_name" required onchange="fillEmployeeDetails()">
-                        <option value="">-- Select Employee Name --</option>
-                        <option value="Soulaf Abou Hamdan">Soulaf Abou Hamdan</option>
-                        <option value="Raghad Alabo">Raghad Alabo</option>
-                        <option value="Khunaf Shammo">Khunaf Shammo</option>
-                        <option value="Alia Shams">Alia Shams</option>
-                        <option value="Mohammad Alhadi">Mohammad Alhadi</option>
-                        <option value="Mhedi Alkhaldi">Mhedi Alkhaldi</option>
-                        <option value="Alan Khalil">Alan Khalil</option>
-                        <option value="Hiba Almanadili">Hiba Almanadili</option>
-                        <option value="Hasan Daas">Hasan Daas</option>
-                        <option value="Abd Alkader Sabbagh">Abd Alkader Sabbagh</option>
-                        <option value="Malik Omo">Malik Omo</option>
-                        <option value="Ebrahem Shehnabe">Ebrahem Shehnabe</option>
-                        <option value="Hussaim Morad">Hussaim Morad</option>
-                        <option value="Hazem Alzeer">Hazem Alzeer</option>
-                        <option value="Felix Legrand">Felix Legrand</option>
-                        <option value="Raian Ani">Raian Ani</option>
-                        <option value="Silvart Salloum">Silvart Salloum</option>
-                        <option value="Samar Kattan">Samar Kattan</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="employee_email">Email</label>
-                    <input type="email" id="employee_email" name="employee_email" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="employee_position">Position</label>
-                    <input type="text" id="employee_position" name="employee_position" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="supervisor_name">Direct Supervisor</label>
-                    <input type="text" id="supervisor_name" name="supervisor_name" readonly>
-                </div>
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i>
             </div>
-            
-            <div class="form-section">
-                <h3>Request Information</h3>
-                
-                <div class="form-group">
-                    <label for="program" class="required-field">Program</label>
-                    <select id="program" name="program" required>
-                        <option value="">-- Select Program --</option>
-                        <option value="Humanitarian Response">Humanitarian Response</option>
-                        <option value="Protection">Protection</option>
-                        <option value="Shelter and Non-Food Items">Shelter and Non-Food Items</option>
-                        <option value="Water and Sanitation">Water and Sanitation</option>
-                        <option value="Food Security">Food Security</option>
-                        <option value="Health">Health</option>
-                        <option value="Education">Education</option>
-                        <option value="Community Resilience">Community Resilience</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="project" class="required-field">Project</label>
-                    <input type="text" id="project" name="project" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor" class="required-field">Donor</label>
-                    <input type="text" id="donor" name="donor" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="date" class="required-field">Request Date</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="office" class="required-field">Office</label>
-                    <select id="office" name="office" required>
-                        <option value="">-- Select Office --</option>
-                        <option value="Aleppo">Aleppo</option>
-                        <option value="Damascus">Damascus</option>
-                        <option value="Al-Hasakah">Al-Hasakah</option>
-                        <option value="Idlib">Idlib</option>
-                        <option value="Ar-Raqqa">Ar-Raqqa</option>
-                        <option value="KRI">KRI</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <h3>Requested Items/Services Details</h3>
-                
-                <div class="form-group">
-                    <label for="item_count" class="required-field">Number of Items</label>
-                    <input type="number" id="item_count" name="item_count" min="1" value="1" required onchange="generateItemFields()">
-                </div>
-                
-                <div id="items_container">
+            <h1>Dar for Peace and Prosperity</h1>
+            <p>Purchase Request System</p>
+        </header>
+
+        <!-- Breadcrumb navigation -->
+        <div class="breadcrumb">
+            <span><i class="fas fa-home"></i> Home</span>
+            <span class="separator">›</span>
+            <span><i class="fas fa-shopping-bag"></i> Procurement</span>
+            <span class="separator">›</span>
+            <span style="font-weight: bold;"><i class="fas fa-file-invoice"></i> New Purchase Request</span>
+        </div>
+
+        <!-- Form card -->
+        <div class="card">
+            <h2 class="form-title">
+                <i class="fas fa-file-invoice"></i>
+                Purchase Request Form
+            </h2>
+
+            <form id="purchaseForm">
+                <!-- Applicant Information Section -->
+                <div class="form-section">
+                    <h3><i class="fas fa-user-circle"></i> Applicant Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="employee" class="required-field"><i class="fas fa-user"></i> Select Employee</label>
+                        <select id="employee" name="employee_name" required onchange="fillEmployeeDetails()">
+                            <option value="">-- Select Employee Name --</option>
+                            <option value="Soulaf Abou Hamdan">Soulaf Abou Hamdan</option>
+                            <option value="Raghad Alabo">Raghad Alabo</option>
+                            <option value="Khunaf Shammo">Khunaf Shammo</option>
+                            <option value="Alia Shams">Alia Shams</option>
+                            <option value="Mohammad Alhadi">Mohammad Alhadi</option>
+                            <option value="Mhedi Alkhaldi">Mhedi Alkhaldi</option>
+                            <option value="Alan Khalil">Alan Khalil</option>
+                            <option value="Hiba Almanadili">Hiba Almanadili</option>
+                            <option value="Hasan Daas">Hasan Daas</option>
+                            <option value="Abd Alkader Sabbagh">Abd Alkader Sabbagh</option>
+                            <option value="Malik Omo">Malik Omo</option>
+                            <option value="Ebrahem Shehnabe">Ebrahem Shehnabe</option>
+                            <option value="Hussaim Morad">Hussaim Morad</option>
+                            <option value="Hazem Alzeer">Hazem Alzeer</option>
+                            <option value="Felix Legrand">Felix Legrand</option>
+                            <option value="Raian Ani">Raian Ani</option>
+                            <option value="Silvart Salloum">Silvart Salloum</option>
+                            <option value="Samar Kattan">Samar Kattan</option>
+                        </select>
                     </div>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="employee_email"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="employee_email" name="employee_email" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="employee_position"><i class="fas fa-briefcase"></i> Position</label>
+                            <input type="text" id="employee_position" name="employee_position" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="supervisor_name"><i class="fas fa-user-tie"></i> Direct Supervisor</label>
+                        <input type="text" id="supervisor_name" name="supervisor_name" readonly>
+                    </div>
+                </div>
+                
+                <!-- Request Information Section -->
+                <div class="form-section">
+                    <h3><i class="fas fa-clipboard-list"></i> Request Information</h3>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="program" class="required-field"><i class="fas fa-project-diagram"></i> Program</label>
+                            <select id="program" name="program" required>
+                                <option value="">-- Select Program --</option>
+                                <option value="Humanitarian Response">Humanitarian Response</option>
+                                <option value="Protection">Protection</option>
+                                <option value="Shelter and Non-Food Items">Shelter and Non-Food Items</option>
+                                <option value="Water and Sanitation">Water and Sanitation</option>
+                                <option value="Food Security">Food Security</option>
+                                <option value="Health">Health</option>
+                                <option value="Education">Education</option>
+                                <option value="Community Resilience">Community Resilience</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project" class="required-field"><i class="fas fa-folder-open"></i> Project</label>
+                            <input type="text" id="project" name="project" required placeholder="Enter project name">
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="donor" class="required-field"><i class="fas fa-hand-holding-usd"></i> Donor</label>
+                            <input type="text" id="donor" name="donor" required placeholder="Enter donor name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date" class="required-field"><i class="fas fa-calendar-alt"></i> Request Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="office" class="required-field"><i class="fas fa-building"></i> Office</label>
+                        <select id="office" name="office" required>
+                            <option value="">-- Select Office --</option>
+                            <option value="Aleppo">Aleppo</option>
+                            <option value="Damascus">Damascus</option>
+                            <option value="Al-Hasakah">Al-Hasakah</option>
+                            <option value="Idlib">Idlib</option>
+                            <option value="Ar-Raqqa">Ar-Raqqa</option>
+                            <option value="KRI">KRI</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Items/Services Details Section -->
+                <div class="form-section">
+                    <h3><i class="fas fa-boxes"></i> Requested Items/Services Details</h3>
+                    
+                    <div class="item-count">
+                        <label for="item_count"><i class="fas fa-calculator"></i> Number of Items:</label>
+                        <input type="number" id="item_count" name="item_count" min="1" value="1" required onchange="generateItemFields()">
+                    </div>
+                    
+                    <div id="items_container" class="items-container">
+                        <!-- Fields will be generated dynamically -->
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit Purchase Request
+                </button>
+                
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>
+                <i class="fas fa-copyright"></i> 2026 Dar for Peace and Prosperity. All rights reserved.
             </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Submit Purchase Request">
+            <div style="margin-top: 10px;">
+                <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                <span style="margin: 0 10px;">|</span>
+                <a href="#"><i class="fas fa-lock"></i> Privacy Policy</a>
+                <span style="margin: 0 10px;">|</span>
+                <a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a>
             </div>
-            
-            <div id="statusMessage" class="status-message"></div>
-        </form>
+            <div style="margin-top: 15px; font-size: 12px; opacity: 0.7;">
+                Purchase Request System v1.0 | Developed by MEAL Department
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -222,17 +674,17 @@
         const employees = {
             "Soulaf Abou Hamdan": { email: "shamdan@dar.ngo", position: "Programs Coordinator", supervisor: "Samar Kattan" },
             "Raghad Alabo": { email: "ralabo@dar.ngo", position: "Administrative Officer", supervisor: "Soulaf Abou Hamdan" },
-            "Khunaf Shammo": { email: "kshamo@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
-            "Alia Shams": { email: "Ashams@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
-            "Mohammad Alhadi": { email: "Malhadi@dar.ngo", position: "Aria Coordenator", supervisor: "Soulaf Abou Hamdan" },
+            "Khunaf Shammo": { email: "kshamo@dar.ngo", position: "Area Coordinator", supervisor: "Soulaf Abou Hamdan" },
+            "Alia Shams": { email: "Ashams@dar.ngo", position: "Area Coordinator", supervisor: "Soulaf Abou Hamdan" },
+            "Mohammad Alhadi": { email: "Malhadi@dar.ngo", position: "Area Coordinator", supervisor: "Soulaf Abou Hamdan" },
             "Mhedi Alkhaldi": { email: "malkhaldi@dar.ngo", position: "MEAL Officer", supervisor: "Samar Kattan" },
-            "Alan Khalil": { email: "akhalil@dar.ngo", position: "Operation Manager", supervisor: "Samar Kattan" },
+            "Alan Khalil": { email: "akhalil@dar.ngo", position: "Operations Manager", supervisor: "Samar Kattan" },
             "Hiba Almanadili": { email: "hr@dar.ngo", position: "HR Officer", supervisor: "Alan Khalil" },
             "Hasan Daas": { email: "Hdaas@dar.ngo", position: "Finance Officer", supervisor: "Alan Khalil" },
             "Abd Alkader Sabbagh": { email: "asabbagh@dar.ngo", position: "Finance & Logistics Coordinator", supervisor: "Hasan Daas" },
             "Malik Omo": { email: "momo@dar.ngo", position: "Finance & Logistics Assistant", supervisor: "Abd Alkader Sabbagh" },
             "Ebrahem Shehnabe": { email: "inabi@dar.ngo", position: "Finance & Logistics Assistant", supervisor: "Abd Alkader Sabbagh" },
-            "Hussaim Morad": { email: "liaison@dar.ngo", position: "Head of the KRI Mission", supervisor: "Alan Khalil" },
+            "Hussaim Morad": { email: "liaison@dar.ngo", position: "Head of KRI Mission", supervisor: "Alan Khalil" },
             "Hazem Alzeer": { email: "Hmohammad@dar.ngo", position: "Media Officer", supervisor: "Samar Kattan" },
             "Felix Legrand": { email: "fLegrand@dar.ngo", position: "Partnerships Supervisor", supervisor: "Samar Kattan" },
             "Raian Ani": { email: "ralani@dar.ngo", position: "Partnerships Officer", supervisor: "Felix Legrand" },
@@ -259,7 +711,7 @@
 
         // Generate item fields dynamically
         function generateItemFields() {
-            const itemCount = parseInt(document.getElementById("item_count").value);
+            const itemCount = parseInt(document.getElementById("item_count").value) || 1;
             const container = document.getElementById("items_container");
             container.innerHTML = '';
             
@@ -267,56 +719,63 @@
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'item-container';
                 itemDiv.innerHTML = `
-                    <div class="item-header">Item ${i}</div>
-                    
-                    <div class="form-group">
-                        <label for="item_${i}" class="required-field">Item/Service Name</label>
-                        <input type="text" id="item_${i}" name="item[]" required>
+                    <div class="item-header">
+                        <i class="fas fa-box"></i>
+                        Item ${i}
                     </div>
                     
                     <div class="form-group">
-                        <label for="description_${i}" class="required-field">Detailed Description</label>
-                        <textarea id="description_${i}" name="description[]" rows="3" required></textarea>
+                        <label for="item_${i}" class="required-field"><i class="fas fa-tag"></i> Item/Service Name</label>
+                        <input type="text" id="item_${i}" name="item[]" required placeholder="Enter item or service name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="quantity_${i}" class="required-field">Quantity</label>
-                        <input type="number" id="quantity_${i}" name="quantity[]" min="1" required oninput="calculateTotal(${i})">
+                        <label for="description_${i}" class="required-field"><i class="fas fa-align-left"></i> Detailed Description</label>
+                        <textarea id="description_${i}" name="description[]" rows="3" required placeholder="Provide detailed description of the item or service"></textarea>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="quantity_${i}" class="required-field"><i class="fas fa-hashtag"></i> Quantity</label>
+                            <input type="number" id="quantity_${i}" name="quantity[]" min="1" required oninput="calculateTotal(${i})">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unit_${i}" class="required-field"><i class="fas fa-ruler"></i> Unit of Measurement</label>
+                            <select id="unit_${i}" name="unit[]" required>
+                                <option value="">-- Select Unit --</option>
+                                <option value="Piece">Piece</option>
+                                <option value="Kilogram">Kilogram</option>
+                                <option value="Liter">Liter</option>
+                                <option value="Meter">Meter</option>
+                                <option value="Square Meter">Square Meter</option>
+                                <option value="Set">Set</option>
+                                <option value="Package">Package</option>
+                                <option value="Hour">Hour</option>
+                                <option value="Day">Day</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="unit_price_${i}" class="required-field"><i class="fas fa-dollar-sign"></i> Unit Price ($)</label>
+                            <input type="number" id="unit_price_${i}" name="unit_price[]" step="0.01" min="0" required oninput="calculateTotal(${i})" placeholder="0.00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="total_price_${i}"><i class="fas fa-calculator"></i> Total Amount ($)</label>
+                            <input type="number" id="total_price_${i}" name="total_price[]" step="0.01" readonly placeholder="0.00">
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="unit_${i}" class="required-field">Unit of Measurement</label>
-                        <select id="unit_${i}" name="unit[]" required>
-                            <option value="">-- Select Unit --</option>
-                            <option value="Piece">Piece</option>
-                            <option value="Kilogram">Kilogram</option>
-                            <option value="Liter">Liter</option>
-                            <option value="Meter">Meter</option>
-                            <option value="Square Meter">Square Meter</option>
-                            <option value="Set">Set</option>
-                            <option value="Package">Package</option>
-                            <option value="Hour">Hour</option>
-                            <option value="Day">Day</option>
-                        </select>
+                        <label for="purpose_${i}" class="required-field"><i class="fas fa-bullseye"></i> Purpose of Request</label>
+                        <textarea id="purpose_${i}" name="purpose[]" rows="2" required placeholder="Why do you need this item/service?"></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label for="unit_price_${i}" class="required-field">Unit Price ($)</label>
-                        <input type="number" id="unit_price_${i}" name="unit_price[]" step="0.01" min="0" required oninput="calculateTotal(${i})">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="total_price_${i}">Total Amount ($)</label>
-                        <input type="number" id="total_price_${i}" name="total_price[]" step="0.01" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="purpose_${i}" class="required-field">Purpose of Request</label>
-                        <textarea id="purpose_${i}" name="purpose[]" rows="2" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="urgency_${i}">Priority Level</label>
+                        <label for="urgency_${i}"><i class="fas fa-exclamation-triangle"></i> Priority Level</label>
                         <select id="urgency_${i}" name="urgency[]">
                             <option value="Normal">Normal</option>
                             <option value="Medium">Medium</option>
@@ -339,11 +798,8 @@
 
         // Set today's date automatically
         window.onload = function() {
-            // Set today's date as default
             const today = new Date().toISOString().split('T')[0];
             document.getElementById("date").value = today;
-            
-            // Generate initial item fields
             generateItemFields();
         };
 
@@ -356,39 +812,31 @@
             
             statusMessage.style.display = 'block';
             statusMessage.className = 'status-message info';
-            statusMessage.textContent = 'Processing your request...';
+            statusMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing your request...';
             
-            // Collect form data using FormData
             const formData = new FormData(form);
             
-            // Replace with your actual Google Apps Script URL
+            // Replace with your Google Apps Script URL
             const scriptURL = 'https://script.google.com/macros/s/AKfycbx4v0ndelsfDVKn2GFzzbzjteBv8BnxKNU1hgFqWhCqNACTfXRhOnH-k4EDJ8uOE6aW/exec';
             
-            // Send data as form data
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData 
+                body: formData,
+                mode: 'no-cors'
             })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Network response was not ok.');
-                }
-            })
-            .then(data => {
-                if (data.status === "success") {
-                    statusMessage.textContent = 'Request submitted successfully!';
-                    statusMessage.className = 'status-message success';
-                    form.reset();
-                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                    generateItemFields();
-                } else {
-                    throw new Error(data.message || 'An unknown error occurred.');
-                }
+            .then(() => {
+                statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Request submitted successfully!';
+                statusMessage.className = 'status-message success';
+                form.reset();
+                document.getElementById("date").value = new Date().toISOString().split('T')[0];
+                generateItemFields();
+                
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 5000);
             })
             .catch(error => {
-                statusMessage.textContent = 'Error: ' + error.message;
+                statusMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error: ' + error.message;
                 statusMessage.className = 'status-message error';
                 console.error('Error:', error);
             });
@@ -396,7 +844,3 @@
     </script>
 </body>
 </html>
-
-
-
-
