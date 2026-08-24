@@ -329,6 +329,12 @@
             transform: translateX(-5px);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
         /* Status messages */
         .status-message {
             padding: 15px 20px;
@@ -642,7 +648,7 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-btn">
+                <button type="submit" class="submit-btn" id="submitBtn">
                     <i class="fas fa-paper-plane"></i>
                     Submit Purchase Request
                 </button>
@@ -809,6 +815,11 @@
             
             const form = e.target;
             const statusMessage = document.getElementById("statusMessage");
+            const submitBtn = document.getElementById("submitBtn");
+            
+            // تعطيل الزر لمنع الضغط المتكرر
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             
             statusMessage.style.display = 'block';
             statusMessage.className = 'status-message info';
@@ -816,30 +827,66 @@
             
             const formData = new FormData(form);
             
-            // Replace with your Google Apps Script URL
+            // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
             const scriptURL = 'https://script.google.com/macros/s/AKfycbx4v0ndelsfDVKn2GFzzbzjteBv8BnxKNU1hgFqWhCqNACTfXRhOnH-k4EDJ8uOE6aW/exec';
             
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData,
-                mode: 'no-cors'
+                body: formData
+                // تم إزالة mode: 'no-cors' لإتاحة قراءة الرد
             })
-            .then(() => {
-                statusMessage.innerHTML = '<i class="fas fa-check-circle"></i> Request submitted successfully!';
-                statusMessage.className = 'status-message success';
-                form.reset();
-                document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                generateItemFields();
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Server response:', data);
                 
-                setTimeout(() => {
-                    statusMessage.style.display = 'none';
-                }, 5000);
+                if (data.status === 'success') {
+                    statusMessage.innerHTML = `
+                        <i class="fas fa-check-circle"></i> 
+                        Request submitted successfully! 
+                        Request ID: ${data.requestId || 'N/A'}
+                    `;
+                    statusMessage.className = 'status-message success';
+                    
+                    // إعادة تعيين النموذج بعد النجاح
+                    form.reset();
+                    document.getElementById("date").value = new Date().toISOString().split('T')[0];
+                    generateItemFields();
+                    fillEmployeeDetails(); // إعادة تعيين حقل الموظف
+                    
+                    // إخفاء الرسالة بعد 10 ثواني
+                    setTimeout(() => {
+                        statusMessage.style.display = 'none';
+                    }, 10000);
+                } else {
+                    throw new Error(data.message || 'Unknown error occurred');
+                }
             })
             .catch(error => {
-                statusMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error: ' + error.message;
+                console.error('Error details:', error);
+                statusMessage.innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i> 
+                    Error: ${error.message || 'Failed to submit request. Please try again.'}
+                `;
                 statusMessage.className = 'status-message error';
-                console.error('Error:', error);
+            })
+            .finally(() => {
+                // إعادة تفعيل الزر
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Purchase Request';
             });
+        });
+
+        // إضافة معالجة للأخطاء في حالة عدم وجود اتصال
+        window.addEventListener('online', function() {
+            const statusMessage = document.getElementById("statusMessage");
+            if (statusMessage.classList.contains('error')) {
+                statusMessage.style.display = 'none';
+            }
         });
     </script>
 </body>
