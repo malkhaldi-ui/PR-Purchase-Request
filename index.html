@@ -777,6 +777,7 @@
             generateItemFields();
         };
 
+        // الدالة المعدلة لإرسال البيانات دون خطأ CORS
         document.getElementById("purchaseForm").addEventListener("submit", function(e) {
             e.preventDefault();
             
@@ -792,13 +793,21 @@
             statusMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing your request...';
             
             const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
             
-            // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+            for (const pair of formData.entries()) {
+                searchParams.append(pair[0], pair[1]);
+            }
+            
+            // استبدل هذا الرابط بـ Web App URL الخاص بالنشر الجديد
             const scriptURL = 'https://script.google.com/macros/s/AKfycbx4mQIp_PLeIzTZQZSzpwFxdDoQaCfXNThRmVqa9krdzqnLxIF1fN3J1x7TYJm0p9EH/exec';
             
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: searchParams.toString()
             })
             .then(response => {
                 if (!response.ok) {
@@ -831,13 +840,9 @@
             })
             .catch(error => {
                 console.error('Error details:', error);
-                let errorMsg = error.message;
-                if (error.message.includes('Failed to fetch')) {
-                    errorMsg = 'Cannot connect to the server. Please check your internet connection and try again.';
-                }
                 statusMessage.innerHTML = `
                     <i class="fas fa-exclamation-circle"></i> 
-                    Error: ${errorMsg}
+                    Error: ${error.message}
                 `;
                 statusMessage.className = 'status-message error';
             })
