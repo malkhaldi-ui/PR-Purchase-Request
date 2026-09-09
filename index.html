@@ -8,7 +8,13 @@
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         :root {
             --primary: #3C6255;
             --secondary: #9CAF88;
@@ -20,68 +26,333 @@
             --info: #17a2b8;
         }
 
-        body { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh; color: #333; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
 
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white; padding: 25px 0; text-align: center; border-radius: 15px 15px 0 0;
-            position: relative; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .logo {
-            background: white; width: 70px; height: 70px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative; z-index: 1; overflow: hidden; padding: 8px;
+            background: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            padding: 8px;
         }
-        .logo img { width: 100%; height: 100%; object-fit: contain; }
 
-        .header h1 { font-size: 28px; margin-bottom: 5px; position: relative; z-index: 1; }
-        .header p { opacity: 0.9; font-size: 16px; position: relative; z-index: 1; }
-
-        .breadcrumb { background: var(--secondary); padding: 12px 25px; color: white; font-size: 15px; display: flex; align-items: center; gap: 10px; }
-        .card { background: white; border-radius: 0 0 15px 15px; padding: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 30px; border-top: 5px solid var(--secondary); }
-
-        .form-title { color: var(--primary); margin-bottom: 25px; text-align: center; font-size: 26px; position: relative; padding-bottom: 12px; }
-        .form-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--secondary); border-radius: 2px; }
-
-        .form-section { background: #f8f9fa; border-radius: 10px; padding: 22px; margin-bottom: 25px; border-left: 4px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .form-section h3 { color: var(--primary); margin-bottom: 18px; font-size: 19px; display: flex; align-items: center; gap: 10px; }
-
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600; color: var(--dark); font-size: 14px; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 11px 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; transition: all 0.3s; background: white;
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(156, 175, 136, 0.15); }
-        .form-group input[readonly] { background-color: #f0f0f0; color: #555; }
 
-        .required-field::after { content: " *"; color: var(--danger); font-weight: bold; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
 
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .card { padding: 20px; } }
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
 
-        .items-container { display: flex; flex-direction: column; gap: 15px; }
-        .item-container { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 18px; }
-        .item-header { background: var(--primary); color: white; padding: 8px 12px; border-radius: 5px; margin-bottom: 15px; font-weight: 600; }
+        .breadcrumb {
+            background: var(--secondary);
+            padding: 12px 25px;
+            color: white;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .form-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 26px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .form-section h3 {
+            color: var(--primary);
+            margin-bottom: 18px;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(156, 175, 136, 0.15);
+        }
+
+        .form-group input[readonly] {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .card { padding: 20px; }
+            .logo { width: 55px; height: 55px; }
+        }
+
+        /* --- تنسيقات جدول المواد الأفقية المطورة --- */
+        .items-table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-top: 10px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        .items-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .items-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .items-table tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        .items-table textarea {
+            width: 100%;
+            min-height: 38px;
+            height: 38px;
+            resize: vertical;
+            font-size: 13px;
+            padding: 6px 8px;
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .items-table input,
+        .items-table select {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 13px;
+            height: 38px;
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+        }
+
+        .btn-add-row {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-add-row:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-delete-row {
+            background: #fff0f0;
+            color: var(--danger);
+            border: 1px solid #ffcdd2;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-delete-row:hover {
+            background: var(--danger);
+            color: white;
+        }
 
         .submit-btn {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white; border: none; padding: 16px; font-size: 17px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: all 0.3s;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(60, 98, 85, 0.3); }
 
-        .status-message { padding: 15px 20px; border-radius: 8px; margin-top: 20px; text-align: center; font-weight: 600; display: none; }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(60, 98, 85, 0.3);
+        }
+
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
         .status-message.success { background: #d4edda; color: var(--success); border: 1px solid #c3e6cb; }
         .status-message.error { background: #f8d7da; color: var(--danger); border: 1px solid #f5c6cb; }
         .status-message.info { background: #d1ecf1; color: var(--info); border: 1px solid #bee5eb; }
 
-        .routing-preview { background: #eef4f1; border: 1px dashed var(--primary); padding: 15px; border-radius: 8px; margin-top: 10px; }
-        .routing-title { font-size: 13px; font-weight: bold; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .routing-preview {
+            background: #eef4f1;
+            border: 1px dashed var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
 
-        .footer { text-align: center; padding: 25px 0; color: #666; font-size: 13px; border-top: 1px solid #eee; }
+        .routing-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px 0;
+            color: #666;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +457,7 @@
                         </select>
                     </div>
 
-                    <!-- معاينة الموظفين المستلمين للموافقات -->
+                    <!-- Routing Info -->
                     <div class="routing-preview" id="routingPreview" style="display: none;">
                         <div class="routing-title"><i class="fas fa-route"></i> Request Routing Info (Assigned Approvers):</div>
                         <div class="grid-2">
@@ -202,16 +473,35 @@
                     </div>
                 </div>
                 
-                <!-- Items Details -->
+                <!-- Requested Items Details Table -->
                 <div class="form-section">
                     <h3><i class="fas fa-boxes"></i> Requested Items/Services Details</h3>
-                    
-                    <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <label for="item_count" style="font-weight: 600; color: var(--primary);">Number of Items:</label>
-                        <input type="number" id="item_count" name="item_count" min="1" value="1" style="width: 80px; padding: 5px; text-align: center;" required onchange="generateItemFields()">
+
+                    <div class="items-table-container">
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 35px; text-align: center;">#</th>
+                                    <th style="width: 18%;" class="required-field">Item Name</th>
+                                    <th style="width: 25%;" class="required-field">Description</th>
+                                    <th style="width: 8%;" class="required-field">Qty</th>
+                                    <th style="width: 12%;" class="required-field">Unit</th>
+                                    <th style="width: 11%;" class="required-field">Price ($)</th>
+                                    <th style="width: 10%;">Total ($)</th>
+                                    <th style="width: 18%;" class="required-field">Purpose</th>
+                                    <th style="width: 10%;">Priority</th>
+                                    <th style="width: 35px; text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items_table_body">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
                     </div>
-                    
-                    <div id="items_container" class="items-container"></div>
+
+                    <button type="button" class="btn-add-row" onclick="addNewItemRow()">
+                        <i class="fas fa-plus-circle"></i> Add Another Item
+                    </button>
                 </div>
                 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -230,7 +520,6 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx4mQIp_PLeIzTZQZSzpwFxdDoQaCfXNThRmVqa9krdzqnLxIF1fN3J1x7TYJm0p9EH/exec';
 
-        // بيانات الكادر والموظفين
         const employeesData = {
             "Soulaf Abou Hamdan": { email: "shamdan@dar.ngo", position: "Programs Coordinator", supervisor: "Samar Kattan" },
             "Raghad Alabo": { email: "ralabo@dar.ngo", position: "Administrative Officer", supervisor: "Soulaf Abou Hamdan" },
@@ -252,7 +541,6 @@
             "Samar Kattan": { email: "skattan@dar.ngo", position: "CEO", supervisor: "" }
         };
 
-        // مصفوفة المشاريع والمسؤولين المباشرين المستلمين للطلبات (مستخرجة من الشيت)
         const projectMatrix = [
             { project: "Rawafid", donor: "GIZ", finance: "Esraa Bitar", logistics: "Salwa Obaid / Mohammad Hammod" },
             { project: "WATERS FOR PEACE", donor: "Nabni", finance: "Betoul Felfleh", logistics: "Abd Alkader Sabbagh / Muhammet El Hadi" },
@@ -266,12 +554,11 @@
 
         window.onload = function() {
             document.getElementById("date").value = new Date().toISOString().split('T')[0];
-            generateItemFields();
             initDropdowns();
+            addNewItemRow();
         };
 
         function initDropdowns() {
-            // تعبئة الموظفين
             const empSelect = document.getElementById("employee");
             empSelect.innerHTML = '<option value="">-- Select Employee Name --</option>';
             Object.keys(employeesData).sort().forEach(emp => {
@@ -281,10 +568,8 @@
                 empSelect.appendChild(opt);
             });
 
-            // تعبئة المشاريع من الماتريكس
             const projSelect = document.getElementById("project");
             projSelect.innerHTML = '<option value="">-- Select Project --</option>';
-            
             const uniqueProjects = [...new Set(projectMatrix.map(item => item.project))];
             uniqueProjects.forEach(proj => {
                 const opt = document.createElement("option");
@@ -311,7 +596,6 @@
                     donorSelect.appendChild(opt);
                 });
 
-                // إذا كان المانح واحداً، حدده تلقائياً
                 if(availableDonors.length === 1) {
                     donorSelect.value = availableDonors[0];
                     updateAssignedApprovers();
@@ -353,75 +637,115 @@
             }
         }
 
-        function generateItemFields() {
-            const itemCount = parseInt(document.getElementById("item_count").value) || 1;
-            const container = document.getElementById("items_container");
-            container.innerHTML = '';
+        /* --- Dynamic Item Table Functions --- */
+        function addNewItemRow() {
+            const tbody = document.getElementById("items_table_body");
+            const rowCount = tbody.children.length + 1;
             
-            for (let i = 1; i <= itemCount; i++) {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'item-container';
-                itemDiv.innerHTML = `
-                    <div class="item-header"><i class="fas fa-box"></i> Item ${i}</div>
-                    <div class="form-group">
-                        <label class="required-field">Item/Service Name</label>
-                        <input type="text" name="item[]" required placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label class="required-field">Detailed Description</label>
-                        <textarea name="description[]" rows="2" required placeholder="Description"></textarea>
-                    </div>
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label class="required-field">Quantity</label>
-                            <input type="number" id="quantity_${i}" name="quantity[]" min="1" required oninput="calculateTotal(${i})">
-                        </div>
-                        <div class="form-group">
-                            <label class="required-field">Unit</label>
-                            <select name="unit[]" required>
-                                <option value="">-- Unit --</option>
-                                <option value="Piece">Piece</option>
-                                <option value="Kilogram">Kilogram</option>
-                                <option value="Liter">Liter</option>
-                                <option value="Meter">Meter</option>
-                                <option value="Set">Set</option>
-                                <option value="Package">Package</option>
-                                <option value="Day">Day</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="grid-2">
-                        <div class="form-group">
-                            <label class="required-field">Unit Price ($)</label>
-                            <input type="number" id="unit_price_${i}" name="unit_price[]" step="0.01" min="0" required oninput="calculateTotal(${i})" placeholder="0.00">
-                        </div>
-                        <div class="form-group">
-                            <label>Total Amount ($)</label>
-                            <input type="number" id="total_price_${i}" name="total_price[]" step="0.01" readonly placeholder="0.00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="required-field">Purpose of Request</label>
-                        <textarea name="purpose[]" rows="2" required placeholder="Purpose"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Priority Level</label>
-                        <select name="urgency[]">
-                            <option value="Normal">Normal</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="Emergency">Emergency</option>
-                        </select>
-                    </div>
-                `;
-                container.appendChild(itemDiv);
+            const tr = document.createElement("tr");
+            tr.id = `item_row_${rowCount}`;
+            tr.innerHTML = `
+                <td style="text-align: center; font-weight: bold; vertical-align: middle;">${rowCount}</td>
+                <td>
+                    <input type="text" name="item[]" required placeholder="Item name">
+                </td>
+                <td>
+                    <textarea name="description[]" rows="1" required placeholder="Description..."></textarea>
+                </td>
+                <td>
+                    <input type="number" id="quantity_${rowCount}" name="quantity[]" min="1" required oninput="calculateRowTotal(${rowCount})" placeholder="1">
+                </td>
+                <td>
+                    <select name="unit[]" required>
+                        <option value="">Unit</option>
+                        <option value="Piece">Piece</option>
+                        <option value="Kilogram">Kilogram</option>
+                        <option value="Liter">Liter</option>
+                        <option value="Meter">Meter</option>
+                        <option value="Set">Set</option>
+                        <option value="Package">Package</option>
+                        <option value="Day">Day</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="unit_price_${rowCount}" name="unit_price[]" step="0.01" min="0" required oninput="calculateRowTotal(${rowCount})" placeholder="0.00">
+                </td>
+                <td>
+                    <input type="number" id="total_price_${rowCount}" name="total_price[]" step="0.01" readonly placeholder="0.00" style="background:#f5f5f5;">
+                </td>
+                <td>
+                    <textarea name="purpose[]" rows="1" required placeholder="Purpose..."></textarea>
+                </td>
+                <td>
+                    <select name="urgency[]">
+                        <option value="Normal">Normal</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
+                </td>
+                <td style="text-align: center; vertical-align: middle;">
+                    <button type="button" class="btn-delete-row" onclick="deleteItemRow(this)" title="Delete Item">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            updateHiddenItemCount();
+        }
+
+        function deleteItemRow(btn) {
+            const tbody = document.getElementById("items_table_body");
+            if (tbody.children.length > 1) {
+                btn.closest("tr").remove();
+                reindexRows();
+            } else {
+                alert("At least one item is required.");
             }
         }
 
-        function calculateTotal(index) {
+        function reindexRows() {
+            const rows = document.querySelectorAll("#items_table_body tr");
+            rows.forEach((row, index) => {
+                const rowNum = index + 1;
+                row.id = `item_row_${rowNum}`;
+                row.cells[0].innerText = rowNum;
+                
+                const qtyInput = row.querySelector("input[name='quantity[]']");
+                const priceInput = row.querySelector("input[name='unit_price[]']");
+                const totalInput = row.querySelector("input[name='total_price[]']");
+                
+                if (qtyInput) {
+                    qtyInput.id = `quantity_${rowNum}`;
+                    qtyInput.setAttribute("oninput", `calculateRowTotal(${rowNum})`);
+                }
+                if (priceInput) {
+                    priceInput.id = `unit_price_${rowNum}`;
+                    priceInput.setAttribute("oninput", `calculateRowTotal(${rowNum})`);
+                }
+                if (totalInput) {
+                    totalInput.id = `total_price_${rowNum}`;
+                }
+            });
+            updateHiddenItemCount();
+        }
+
+        function calculateRowTotal(index) {
             const qty = parseFloat(document.getElementById(`quantity_${index}`).value) || 0;
             const price = parseFloat(document.getElementById(`unit_price_${index}`).value) || 0;
             document.getElementById(`total_price_${index}`).value = (qty * price).toFixed(2);
+        }
+
+        function updateHiddenItemCount() {
+            let countInput = document.getElementById("item_count_hidden");
+            if (!countInput) {
+                countInput = document.createElement("input");
+                countInput.type = "hidden";
+                countInput.id = "item_count_hidden";
+                countInput.name = "item_count";
+                document.getElementById("purchaseForm").appendChild(countInput);
+            }
+            countInput.value = document.querySelectorAll("#items_table_body tr").length;
         }
 
         document.getElementById("purchaseForm").addEventListener("submit", function(e) {
@@ -454,7 +778,8 @@
                 
                 e.target.reset();
                 document.getElementById("date").value = new Date().toISOString().split('T')[0];
-                generateItemFields();
+                document.getElementById("items_table_body").innerHTML = '';
+                addNewItemRow();
                 fillEmployeeDetails();
                 document.getElementById("routingPreview").style.display = 'none';
                 
