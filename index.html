@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase Request System - Dar for Peace and Prosperity</title>
-    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="icon" href="dar.png" type="image/png">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -271,7 +271,7 @@
     <div class="container">
         <header class="header">
             <div class="logo">
-                <img src="logo.png" alt="Dar Logo">
+                <img src="dar.png" alt="Dar Logo">
             </div>
             <h1>Dar for Peace and Prosperity</h1>
             <p>Purchase Request System</p>
@@ -428,20 +428,23 @@
         window.onload = function() {
             document.getElementById("date").value = new Date().toISOString().split('T')[0];
             generateItemFields();
-            fetchMatrixData();
+            fetchMatrixDataJSONP();
         };
 
-        function fetchMatrixData() {
-            fetch(`${scriptURL}?type=getMatrix`)
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === 'success') {
-                    projectsDataMap = data.projectsMap;
-                    populateProjectsDropdown(Object.keys(projectsDataMap));
-                    populateEmployeesDropdown(data.employees);
-                }
-            })
-            .catch(err => console.error('Error fetching Matrix:', err));
+        // استخدام تقنية JSONP لتجاوز حظر الـ CORS تماماً عند جلب البيانات
+        function fetchMatrixDataJSONP() {
+            const script = document.createElement('script');
+            script.src = `${scriptURL}?type=getMatrix&callback=handleMatrixResponse`;
+            document.body.appendChild(script);
+        }
+
+        // دالة الاستجابة المستدعاة من JSONP
+        function handleMatrixResponse(data) {
+            if(data && data.status === 'success') {
+                projectsDataMap = data.projectsMap;
+                populateProjectsDropdown(Object.keys(projectsDataMap));
+                populateEmployeesDropdown(data.employees);
+            }
         }
 
         function populateEmployeesDropdown(employees) {
