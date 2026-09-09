@@ -8,13 +8,7 @@
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         :root {
             --primary: #3C6255;
             --secondary: #9CAF88;
@@ -26,253 +20,74 @@
             --info: #17a2b8;
         }
 
-        body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            min-height: 100vh;
-            color: #333;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        body { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 100vh; color: #333; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white;
-            padding: 25px 0;
-            text-align: center;
-            border-radius: 15px 15px 0 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            color: white; padding: 25px 0; text-align: center; border-radius: 15px 15px 0 0;
+            position: relative; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .logo {
-            background: white;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-            padding: 8px;
+            background: white; width: 70px; height: 70px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative; z-index: 1; overflow: hidden; padding: 8px;
         }
+        .logo img { width: 100%; height: 100%; object-fit: contain; }
 
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .header h1 { font-size: 28px; margin-bottom: 5px; position: relative; z-index: 1; }
+        .header p { opacity: 0.9; font-size: 16px; position: relative; z-index: 1; }
 
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-            position: relative;
-            z-index: 1;
-        }
+        .breadcrumb { background: var(--secondary); padding: 12px 25px; color: white; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+        .card { background: white; border-radius: 0 0 15px 15px; padding: 35px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 30px; border-top: 5px solid var(--secondary); }
 
-        .header p {
-            opacity: 0.9;
-            font-size: 16px;
-            position: relative;
-            z-index: 1;
-        }
+        .form-title { color: var(--primary); margin-bottom: 25px; text-align: center; font-size: 26px; position: relative; padding-bottom: 12px; }
+        .form-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--secondary); border-radius: 2px; }
 
-        .breadcrumb {
-            background: var(--secondary);
-            padding: 12px 25px;
-            color: white;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .form-section { background: #f8f9fa; border-radius: 10px; padding: 22px; margin-bottom: 25px; border-left: 4px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .form-section h3 { color: var(--primary); margin-bottom: 18px; font-size: 19px; display: flex; align-items: center; gap: 10px; }
 
-        .card {
-            background: white;
-            border-radius: 0 0 15px 15px;
-            padding: 35px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-            border-top: 5px solid var(--secondary);
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600; color: var(--dark); font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 11px 14px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; transition: all 0.3s; background: white;
         }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 4px rgba(156, 175, 136, 0.15); }
+        .form-group input[readonly] { background-color: #f0f0f0; color: #555; }
 
-        .form-title {
-            color: var(--primary);
-            margin-bottom: 25px;
-            text-align: center;
-            font-size: 26px;
-            position: relative;
-            padding-bottom: 12px;
-        }
+        .required-field::after { content: " *"; color: var(--danger); font-weight: bold; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-        .form-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 2px;
-        }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } .card { padding: 20px; } }
 
-        .form-section {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 22px;
-            margin-bottom: 25px;
-            border-left: 4px solid var(--primary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .form-section h3 {
-            color: var(--primary);
-            margin-bottom: 18px;
-            font-size: 19px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 11px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(156, 175, 136, 0.15);
-        }
-
-        .form-group input[readonly] {
-            background-color: #f0f0f0;
-            color: #666;
-        }
-
-        .required-field::after {
-            content: " *";
-            color: var(--danger);
-            font-weight: bold;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .card { padding: 20px; }
-            .logo { width: 55px; height: 55px; }
-        }
-
-        .items-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .item-container {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 18px;
-        }
-
-        .item-header {
-            background: var(--primary);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
+        .items-container { display: flex; flex-direction: column; gap: 15px; }
+        .item-container { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 18px; }
+        .item-header { background: var(--primary); color: white; padding: 8px 12px; border-radius: 5px; margin-bottom: 15px; font-weight: 600; }
 
         .submit-btn {
             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 17px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            color: white; border: none; padding: 16px; font-size: 17px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: all 0.3s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(60, 98, 85, 0.3); }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(60, 98, 85, 0.3);
-        }
-
-        .status-message {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-        }
-
+        .status-message { padding: 15px 20px; border-radius: 8px; margin-top: 20px; text-align: center; font-weight: 600; display: none; }
         .status-message.success { background: #d4edda; color: var(--success); border: 1px solid #c3e6cb; }
         .status-message.error { background: #f8d7da; color: var(--danger); border: 1px solid #f5c6cb; }
         .status-message.info { background: #d1ecf1; color: var(--info); border: 1px solid #bee5eb; }
 
-        .footer {
-            text-align: center;
-            padding: 25px 0;
-            color: #666;
-            font-size: 13px;
-            border-top: 1px solid #eee;
-        }
+        .routing-preview { background: #eef4f1; border: 1px dashed var(--primary); padding: 15px; border-radius: 8px; margin-top: 10px; }
+        .routing-title { font-size: 13px; font-weight: bold; color: var(--primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+        .footer { text-align: center; padding: 25px 0; color: #666; font-size: 13px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <div class="logo">
-                <img src="dar.png" alt="Dar Logo">
-            </div>
+            <div class="logo"><img src="dar.png" alt="Dar Logo"></div>
             <h1>Dar for Peace and Prosperity</h1>
             <p>Purchase Request System</p>
         </header>
@@ -284,9 +99,7 @@
         </div>
 
         <div class="card">
-            <h2 class="form-title">
-                <i class="fas fa-file-invoice"></i> Purchase Request Form
-            </h2>
+            <h2 class="form-title"><i class="fas fa-file-invoice"></i> Purchase Request Form</h2>
 
             <form id="purchaseForm">
                 <!-- Applicant Information -->
@@ -296,7 +109,7 @@
                     <div class="form-group">
                         <label for="employee" class="required-field"><i class="fas fa-user"></i> Select Employee</label>
                         <select id="employee" name="employee_name" required onchange="fillEmployeeDetails()">
-                            <option value="">-- Loading Employees... --</option>
+                            <option value="">-- Select Employee Name --</option>
                         </select>
                     </div>
                     
@@ -341,7 +154,7 @@
                         <div class="form-group">
                             <label for="project" class="required-field"><i class="fas fa-folder-open"></i> Project</label>
                             <select id="project" name="project" required onchange="updateDonorsDropdown()">
-                                <option value="">-- Loading Projects... --</option>
+                                <option value="">-- Select Project --</option>
                             </select>
                         </div>
                     </div>
@@ -349,7 +162,7 @@
                     <div class="grid-2">
                         <div class="form-group">
                             <label for="donor" class="required-field"><i class="fas fa-hand-holding-usd"></i> Donor</label>
-                            <select id="donor" name="donor" required disabled>
+                            <select id="donor" name="donor" required disabled onchange="updateAssignedApprovers()">
                                 <option value="">-- Select Project First --</option>
                             </select>
                         </div>
@@ -371,6 +184,21 @@
                             <option value="Ar-Raqqa">Ar-Raqqa</option>
                             <option value="KRI">KRI</option>
                         </select>
+                    </div>
+
+                    <!-- معاينة الموظفين المستلمين للموافقات -->
+                    <div class="routing-preview" id="routingPreview" style="display: none;">
+                        <div class="routing-title"><i class="fas fa-route"></i> Request Routing Info (Assigned Approvers):</div>
+                        <div class="grid-2">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:12px;"><i class="fas fa-calculator"></i> Finance Approver:</label>
+                                <input type="text" id="assigned_finance" readonly style="font-size:13px; font-weight:bold;">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:12px;"><i class="fas fa-truck"></i> Logistics Approver:</label>
+                                <input type="text" id="assigned_logistics" readonly style="font-size:13px; font-weight:bold;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -402,6 +230,7 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbx4mQIp_PLeIzTZQZSzpwFxdDoQaCfXNThRmVqa9krdzqnLxIF1fN3J1x7TYJm0p9EH/exec';
 
+        // بيانات الكادر والموظفين
         const employeesData = {
             "Soulaf Abou Hamdan": { email: "shamdan@dar.ngo", position: "Programs Coordinator", supervisor: "Samar Kattan" },
             "Raghad Alabo": { email: "ralabo@dar.ngo", position: "Administrative Officer", supervisor: "Soulaf Abou Hamdan" },
@@ -423,48 +252,44 @@
             "Samar Kattan": { email: "skattan@dar.ngo", position: "CEO", supervisor: "" }
         };
 
-        let projectsDataMap = {};
+        // مصفوفة المشاريع والمسؤولين المباشرين المستلمين للطلبات (مستخرجة من الشيت)
+        const projectMatrix = [
+            { project: "Rawafid", donor: "GIZ", finance: "Esraa Bitar", logistics: "Salwa Obaid / Mohammad Hammod" },
+            { project: "WATERS FOR PEACE", donor: "Nabni", finance: "Betoul Felfleh", logistics: "Abd Alkader Sabbagh / Muhammet El Hadi" },
+            { project: "SEED", donor: "SI", finance: "Ladi Hamdi", logistics: "Malik Omo / Nidal Shaheen" },
+            { project: "MADA", donor: "BSF", finance: "Betoul Felfleh", logistics: "Abd Alkader Sabbagh" },
+            { project: "MADA", donor: "Screen for Peace", finance: "Betoul Felfleh", logistics: "Abd Alkader Sabbagh" },
+            { project: "WISE", donor: "FRF", finance: "Abd Alkader Sabbagh", logistics: "Mohamad Baddour" },
+            { project: "Edu", donor: "BSF", finance: "Abd Alkader Sabbagh", logistics: "Abd Alkader Sabbagh" },
+            { project: "Takamul - 2", donor: "FDF", finance: "Abd Alkader Sabbagh", logistics: "Abd Alkader Sabbagh" }
+        ];
 
         window.onload = function() {
             document.getElementById("date").value = new Date().toISOString().split('T')[0];
             generateItemFields();
-            fetchMatrixDataJSONP();
+            initDropdowns();
         };
 
-        // استخدام تقنية JSONP لتجاوز حظر الـ CORS تماماً عند جلب البيانات
-        function fetchMatrixDataJSONP() {
-            const script = document.createElement('script');
-            script.src = `${scriptURL}?type=getMatrix&callback=handleMatrixResponse`;
-            document.body.appendChild(script);
-        }
-
-        // دالة الاستجابة المستدعاة من JSONP
-        function handleMatrixResponse(data) {
-            if(data && data.status === 'success') {
-                projectsDataMap = data.projectsMap;
-                populateProjectsDropdown(Object.keys(projectsDataMap));
-                populateEmployeesDropdown(data.employees);
-            }
-        }
-
-        function populateEmployeesDropdown(employees) {
+        function initDropdowns() {
+            // تعبئة الموظفين
             const empSelect = document.getElementById("employee");
             empSelect.innerHTML = '<option value="">-- Select Employee Name --</option>';
-            employees.forEach(emp => {
+            Object.keys(employeesData).sort().forEach(emp => {
                 const opt = document.createElement("option");
                 opt.value = emp;
                 opt.textContent = emp;
                 empSelect.appendChild(opt);
             });
-        }
 
-        function populateProjectsDropdown(projects) {
+            // تعبئة المشاريع من الماتريكس
             const projSelect = document.getElementById("project");
             projSelect.innerHTML = '<option value="">-- Select Project --</option>';
-            projects.forEach(p => {
+            
+            const uniqueProjects = [...new Set(projectMatrix.map(item => item.project))];
+            uniqueProjects.forEach(proj => {
                 const opt = document.createElement("option");
-                opt.value = p;
-                opt.textContent = p;
+                opt.value = proj;
+                opt.textContent = proj;
                 projSelect.appendChild(opt);
             });
         }
@@ -474,23 +299,43 @@
             const donorSelect = document.getElementById("donor");
             donorSelect.innerHTML = '';
 
-            if (selectedProject && projectsDataMap[selectedProject]) {
+            if (selectedProject) {
                 donorSelect.disabled = false;
-                const donors = projectsDataMap[selectedProject];
-                if (donors.length === 0) {
-                    donorSelect.innerHTML = '<option value="N/A">N/A</option>';
-                } else {
-                    donorSelect.innerHTML = '<option value="">-- Select Donor --</option>';
-                    donors.forEach(d => {
-                        const opt = document.createElement("option");
-                        opt.value = d;
-                        opt.textContent = d;
-                        donorSelect.appendChild(opt);
-                    });
+                const availableDonors = projectMatrix.filter(item => item.project === selectedProject).map(item => item.donor);
+                
+                donorSelect.innerHTML = '<option value="">-- Select Donor --</option>';
+                availableDonors.forEach(d => {
+                    const opt = document.createElement("option");
+                    opt.value = d;
+                    opt.textContent = d;
+                    donorSelect.appendChild(opt);
+                });
+
+                // إذا كان المانح واحداً، حدده تلقائياً
+                if(availableDonors.length === 1) {
+                    donorSelect.value = availableDonors[0];
+                    updateAssignedApprovers();
                 }
             } else {
                 donorSelect.disabled = true;
                 donorSelect.innerHTML = '<option value="">-- Select Project First --</option>';
+                document.getElementById("routingPreview").style.display = 'none';
+            }
+        }
+
+        function updateAssignedApprovers() {
+            const selectedProject = document.getElementById("project").value;
+            const selectedDonor = document.getElementById("donor").value;
+
+            if (selectedProject && selectedDonor) {
+                const match = projectMatrix.find(item => item.project === selectedProject && item.donor === selectedDonor);
+                if (match) {
+                    document.getElementById("assigned_finance").value = match.finance;
+                    document.getElementById("assigned_logistics").value = match.logistics;
+                    document.getElementById("routingPreview").style.display = 'block';
+                }
+            } else {
+                document.getElementById("routingPreview").style.display = 'none';
             }
         }
 
@@ -610,6 +455,8 @@
                 e.target.reset();
                 document.getElementById("date").value = new Date().toISOString().split('T')[0];
                 generateItemFields();
+                fillEmployeeDetails();
+                document.getElementById("routingPreview").style.display = 'none';
                 
                 setTimeout(() => { statusMessage.style.display = 'none'; }, 8000);
             })
